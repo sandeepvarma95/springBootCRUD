@@ -54,12 +54,20 @@ public class ItemsController {
 
 		}
 		return itemsObj;
+		
 	}
 
 	@DeleteMapping("/items/{id}")
 	public String delete(@PathVariable int id) {
-		itemsService.delete(id);
-		return "Item has been deleted with the id: " + id;
+		
+		try {
+			itemsService.delete(id);
+			LOGGER.info("Item has been deleted with the id: "+id);
+		}catch(Exception e) 
+		{
+			LOGGER.info("The entered id: " + id + " is not present. The Exception is " + e);
+		}
+		return "The delete operation is performed. Please check for status in console";
 	}
 
 	@PutMapping("/items")
